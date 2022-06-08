@@ -2,13 +2,14 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import path from "path";
 import fs from "fs";
 type Data = {
-  paths: object;
+  status:number
+  message:string
 
 };
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<any>
+  res: NextApiResponse<Data>
 ) {
   const paths = req.query;
   const file_path = path.join(process.cwd(), `/public/svg/${paths.name}.svg`);
@@ -19,7 +20,7 @@ export default function handler(
     }
     catch (err) {
         
-        res.status(404).send("Not found");
+        res.status(404).json({status:404,message:"Not Found"});
         }
 
 }
